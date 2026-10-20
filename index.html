@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a1240">
+<title>Для Марьям ✨</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Марьям ✨">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&family=Pixelify+Sans:wght@400;600&family=JetBrains+Mono:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/features.css">
+<link rel="stylesheet" href="css/more.css">
+<link rel="stylesheet" href="css/arcade.css">
+<link rel="stylesheet" href="css/maryam.css">
+<link rel="stylesheet" href="css/doniyor.css">
+</head>
+<body class="locked night">
+
+<canvas id="bg"></canvas>
+<canvas id="fw"></canvas>
+<div id="progress"><i></i></div>
+<div id="cRing"></div><div id="cDot"></div>
+<div id="flash"></div>
+
+<!-- reusable drawings -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="planetG" cx="35%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#ffd6ef"/><stop offset=".5" stop-color="#b48cff"/><stop offset="1" stop-color="#4f6fe0"/>
+    </radialGradient>
+    <linearGradient id="ringG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7fb2ff"/><stop offset=".5" stop-color="#ffc6e6"/><stop offset="1" stop-color="#b48cff"/>
+    </linearGradient>
+    <symbol id="planetSym" viewBox="-50 -50 100 100">
+      <ellipse rx="44" ry="11" transform="rotate(-18)" fill="none" stroke="url(#ringG)" stroke-width="5" opacity=".5"/>
+      <circle r="25" fill="url(#planetG)"/>
+      <path d="M-44 0 A44 11 0 0 0 44 0" transform="rotate(-18)" fill="none" stroke="url(#ringG)" stroke-width="5"/>
+      <circle cx="-9" cy="-10" r="6" fill="#fff" opacity=".4"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ LOADER ============ -->
+<section id="loader" class="screen" aria-label="Загрузка">
+  <div class="ld-inner">
+    <svg class="ld-heart" id="ldHeart" viewBox="0 0 200 180" aria-hidden="true">
+      <defs>
+        <linearGradient id="ldG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ff9ccf"/><stop offset=".55" stop-color="#9d7bff"/><stop offset="1" stop-color="#6fa8ff"/>
+        </linearGradient>
+      </defs>
+      <path id="ldPath" d="M100 160 C 72 140, 40 136, 12 142 L12 42 C 40 34, 72 38, 100 58 C 128 38, 160 34, 188 42 L188 142 C 160 136, 128 140, 100 160 Z M100 58 L100 160"
+            fill="url(#ldG)" stroke="#e8dcff" stroke-width="4" stroke-linejoin="round"/>
+    </svg>
+    <p class="ld-text" id="ldText"></p>
+    <div class="ld-bar"><i></i></div>
+  </div>
+</section>
+
+<!-- ============ LOCK SCREEN ============ -->
+<section id="lock" class="screen waiting" aria-label="Замок">
+  <div id="lockTilt">
+    <div class="lock-card" id="lockCard">
+      <span class="lock-deco" style="--i:0;left:-14px;top:-18px">📚</span>
+      <span class="lock-deco" style="--i:1;right:-10px;top:24px">⭐</span>
+      <span class="lock-deco" style="--i:2;left:-18px;bottom:40px">🎹</span>
+      <span class="lock-deco" style="--i:3;right:-16px;bottom:-14px">🪐</span>
+      <div class="lock-wrap">
+        <svg class="lock-svg" id="lockSvg" viewBox="0 0 120 130" aria-hidden="true">
+          <defs>
+            <linearGradient id="lockG" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ff9ccf"/><stop offset=".55" stop-color="#9d7bff"/><stop offset="1" stop-color="#6fa8ff"/>
+            </linearGradient>
+          </defs>
+          <path class="shackle" d="M38 62 V40 a22 22 0 0 1 44 0 V62" fill="none" stroke="#b48cff" stroke-width="10" stroke-linecap="round"/>
+          <rect x="14" y="58" width="92" height="66" rx="18" fill="url(#lockG)"/>
+          <path d="M60 74 l5 10.5 11.5 1.5 -8.5 8 2 11.5 -10 -5.5 -10 5.5 2 -11.5 -8.5 -8 11.5 -1.5z" fill="#fff"/>
+        </svg>
+        <div class="orbit" aria-hidden="true"><span>✦</span><span>✦</span><span>✦</span></div>
+      </div>
+      <h1 id="lockTitle"></h1>
+      <p class="sub">кое-кто сделал кое-что специально для тебя… 📚</p>
+      <form id="lockForm" autocomplete="off">
+        <div class="pw-row">
+          <input id="pw" type="password" placeholder="пароль вводится сам…" aria-label="Пароль" autocomplete="off">
+          <button type="submit">Открыть</button>
+        </div>
+      </form>
+      <p class="hint" id="hint"></p>
+      <p class="err" id="err" role="alert"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section id="intro" class="screen waiting" aria-label="Интро">
+  <canvas id="morph"></canvas>
+  <p class="cap" id="cap"></p>
+  <div class="intro-ui">
+    <p class="since" id="since"></p>
+    <button class="btn" id="enterBtn">открыть сюрприз ✨</button>
+  </div>
+</section>
+
+<!-- ============ MAIN ============ -->
+<main id="main" aria-hidden="true">
+
+  <header class="hero" id="hero">
+    <div class="par" data-d=".35" style="left:5%;top:10%"><div class="pop-in" style="--d:1.2s"><svg class="orchid" style="--s:120px;--r:-10deg"><use href="#planetSym"/></svg></div></div>
+    <div class="par" data-d=".6" style="right:8%;top:15%"><div class="pop-in" style="--d:1.4s"><span class="deco-emo" style="font-size:54px">📚</span></div></div>
+    <div class="par" data-d=".8" style="left:12%;bottom:17%"><div class="pop-in" style="--d:1.6s"><span class="deco-emo" style="font-size:46px">🌙</span></div></div>
+    <div class="par" data-d=".45" style="right:6%;bottom:13%"><div class="pop-in" style="--d:1.8s"><svg class="orchid" style="--s:96px;--r:14deg;animation-delay:-2s"><use href="#planetSym"/></svg></div></div>
+    <div id="sparks" aria-hidden="true"></div>
+    <div class="hero-content">
+      <p class="made" id="madeBy"></p>
+      <h1 class="name" id="heroName"></h1>
+      <p class="together" id="heroSub"></p>
+    </div>
+    <div class="scroll-cue">листай<span>⌄</span></div>
+  </header>
+
+  <!-- 3D galaxy -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">потяни · покрути · нажми</span>
+      <h2>Галактика Марьям</h2>
+      <p class="lead">Тысячи звёзд — примерно столько раз ты мне помогала 💫</p>
+    </div>
+    <div class="galaxy-wrap reveal" data-a="zoom">
+      <canvas id="galaxy3d" aria-label="Вращающаяся 3D-галактика"></canvas>
+    </div>
+  </section>
+
+  <!-- Arc Warden -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">мой любимый герой в доте ⚡</span>
+      <h2>Arc Warden</h2>
+      <p class="lead" id="arcIntro"></p>
+    </div>
+    <div class="arc reveal" data-a="zoom" id="arc">
+      <div class="arc-stage" id="arcStage">
+        <canvas id="arcBg" aria-hidden="true"></canvas>
+        <div class="arc-hero" id="arcHero"><video muted loop playsinline preload="none" aria-label="Arc Warden"></video></div>
+        <div class="arc-hero arc-double" id="arcDouble" aria-hidden="true"><video muted loop playsinline preload="none"></video></div>
+        <canvas id="arcFx" aria-hidden="true"></canvas>
+        <p class="arc-offline">Чтобы появился герой, нужен интернет 🌐</p>
+      </div>
+      <div class="arc-skills" id="arcSkills"></div>
+      <div class="arc-tip" id="arcTip">
+        <img id="arcTipIcon" alt="">
+        <div><div class="arc-tip-head"><b id="arcTipName"></b><span id="arcTipKey"></span></div><p id="arcTipText"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- bookshelf -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">выбери книгу</span>
+      <h2>Полка для тебя</h2>
+      <p class="lead">Нажми на любую книгу — в каждой записка от меня.</p>
+    </div>
+    <div class="shelf reveal" data-a="zoom" id="shelf"></div>
+  </section>
+
+  <!-- Chinese corner -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">китайский уголок · нажми на слово</span>
+      <h2>Слова для тебя по-китайски</h2>
+    </div>
+    <div class="sphere reveal" data-a="zoom" id="sphere" aria-label="Китайские слова"></div>
+    <div class="lang-pick reveal">
+      <div class="lp-card" id="lpCard">
+        <div class="lp-lang" id="lpLang"></div>
+        <div class="lp-word zh" id="lpWord"></div>
+        <div class="lp-say" id="lpSay"></div>
+        <button class="lp-btn" id="lpSpeak" type="button">🔊 послушать</button>
+      </div>
+    </div>
+    <div class="hz-box reveal" data-a="pop" id="hzBox">
+      <h3 class="hz-title">Потренируй иероглиф ✍️</h3>
+      <div class="hz-chars" id="hzChars"></div>
+      <div class="hz-pad"><div id="hzTarget"></div></div>
+      <div class="hz-info" id="hzInfo"></div>
+      <div class="hz-btns">
+        <button class="btn soft" id="hzShow" type="button">показать порядок черт</button>
+        <button class="btn" id="hzQuiz" type="button">написать самой ✍️</button>
+      </div>
+      <p class="hz-msg" id="hzMsg"></p>
+    </div>
+  </section>
+
+  <!-- leaked dossier -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">утечка данных</span>
+      <h2>Секретные материалы</h2>
+    </div>
+    <div class="dossier reveal" data-a="zoom" id="dossier">
+      <div class="ds-head"><span>⚠️ СОВЕРШЕННО СЕКРЕТНО</span><span>ДЕЛО №404</span></div>
+      <div class="ds-body" id="dsBody"><p class="ds-hint">Файл зашифрован. Нажми, чтобы рассекретить.</p></div>
+      <div class="ds-stamp" id="dsStamp">ПОДТВЕРЖДЕНО</div>
+      <div class="ds-twist" id="dsTwist"></div>
+      <button class="btn" id="dsBtn" type="button">🔓 рассекретить</button>
+    </div>
+  </section>
+
+  <!-- cheer up -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">кнопка поддержки</span>
+      <h2>Плохой день?</h2>
+      <p class="lead">Нажимай сколько угодно — добрые слова не закончатся.</p>
+    </div>
+    <div class="cheer reveal" data-a="pop">
+      <button class="cheer-btn" id="cheerBtn" type="button"><span>нажми</span></button>
+      <p class="cheer-msg" id="cheerMsg"></p>
+      <button class="btn soft" id="breathBtn" type="button">🌬️ подышать вместе</button>
+      <div class="breath" id="breath"><div class="breath-ball" id="breathBall"></div><p id="breathTxt"></p></div>
+    </div>
+  </section>
+
+  <!-- constellation -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">соедини звёзды по порядку</span>
+      <h2>Твоё созвездие</h2>
+      <p class="lead">Нажимай на звёзды по номерам — и посмотри, что получится.</p>
+    </div>
+    <div class="sky-wrap reveal" data-a="zoom">
+      <canvas id="sky" aria-label="Созвездие"></canvas>
+      <p class="sky-msg" id="skyMsg"></p>
+    </div>
+  </section>
+
+  <!-- piano -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">для пианистки</span>
+      <h2>Сыграй что-нибудь</h2>
+      <p class="lead">Нажимай на клавиши (или на клавиатуре). «Аве Мария» Баха–Гуно звучит фоном — а в Piano Hero её можно сыграть самой.</p>
+    </div>
+    <div class="piano reveal" data-a="zoom" id="piano">
+      <div class="piano-top">
+        <span class="brand" id="pianoBrand"></span>
+        <span class="pt-btns"><button id="heroBtn" type="button">🎮 Piano Hero</button><button id="melodyBtn" type="button">▶ Аве Мария</button></span>
+      </div>
+      <canvas class="viz" id="viz"></canvas>
+      <div class="hero-hud" id="heroHud" aria-live="polite"></div>
+      <canvas class="lane" id="lane"></canvas>
+      <div class="keys" id="keys"></div>
+    </div>
+    <p class="piano-tip reveal">клавиатура: A S D F G H J K L ; &nbsp;·&nbsp; W E T Y U O P (английская раскладка)</p>
+  </section>
+
+  <!-- catch game -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">мини-игра</span>
+      <h2>Поймай звёзды</h2>
+      <p class="lead">Двигай книгу и лови звёзды. Уворачивайся от тучек 🌧️ — серии дают бонус!</p>
+    </div>
+    <div class="game reveal" data-a="zoom" id="game">
+      <canvas id="gameCv"></canvas>
+      <div class="hud">
+        <span>⭐ <b id="gScore">0</b></span>
+        <span class="combo" id="gCombo"></span>
+        <span>⏱ <b id="gTime">25</b></span>
+      </div>
+      <div class="timebar"><i id="gBar"></i></div>
+      <div class="g-overlay" id="gOverlay">
+        <div class="g-title" id="gTitle">ПОЙМАЙ ЗВЁЗДЫ</div>
+        <p class="g-msg" id="gMsg">тяни книгу пальцем (или ← →)</p>
+        <button class="btn" id="gStart" type="button">▶ СТАРТ</button>
+        <p class="g-best" id="gBest"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- memory -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">мини-игра №2</span>
+      <h2>Найди пары</h2>
+      <p class="lead">Найди все 8 пар. Меньше ходов — больше звёзд ✨</p>
+    </div>
+    <div class="mem-box reveal" data-a="zoom">
+      <div class="mem-hud"><span>ходы <b id="memMoves">0</b></span><span>⏱ <b id="memTime">0.0</b>с</span><button class="btn soft" id="memReset" type="button">↻ заново</button></div>
+      <div class="memory" id="memory"></div>
+      <p class="mem-msg" id="memMsg"></p>
+    </div>
+  </section>
+
+  <!-- coupons -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">сотри пальцем</span>
+      <h2>Купоны дружбы</h2>
+      <p class="lead">Сотри блестящий слой и забери приз. Срок действия — бессрочно.</p>
+    </div>
+    <div class="coupons" id="coupons"></div>
+  </section>
+
+  <!-- meter -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">очень научно</span>
+      <h2>Насколько ты хороший друг?</h2>
+    </div>
+    <div class="meter-box reveal" data-a="pop" id="meterBox">
+      <div class="meter-num" id="meterNum" data-text="0%">0%</div>
+      <div class="meter"><i id="meterFill"></i></div>
+      <p class="meter-cap" id="meterCap">сейчас измерим…</p>
+      <button class="btn" id="meterBtn" type="button">измерить</button>
+    </div>
+  </section>
+
+  <!-- letter -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">и ещё кое-что</span>
+      <h2>Письмо для тебя</h2>
+    </div>
+    <div class="env-wrap reveal" data-a="zoom">
+      <button class="envelope" id="envelope" type="button" aria-label="Открыть письмо">
+        <span class="body"></span>
+        <span class="paper" id="envPaper"></span>
+        <span class="pocket"></span>
+        <span class="flap"></span>
+        <span class="seal">✦</span>
+      </button>
+      <p class="env-cap" id="envCap">нажми, чтобы открыть 💌</p>
+    </div>
+  </section>
+
+  <!-- question -->
+  <section class="section">
+    <div class="q-box reveal" data-a="pop" id="qBox">
+      <h3 id="qText"></h3>
+      <div class="q-btns">
+        <button class="btn" id="yesBtn" type="button">Да ✨</button>
+        <button class="btn soft" id="noBtn" type="button">Нет</button>
+      </div>
+      <p class="yay" id="yay"></p>
+      <button class="btn credits-btn" id="creditsBtn" type="button">🎬 титры</button>
+    </div>
+  </section>
+
+  <footer>
+    <span class="big" id="footBig"></span>
+    <span id="footLine"></span>
+  </footer>
+</main>
+
+<!-- music button -->
+<button id="musicBtn" type="button" aria-label="Музыка вкл/выкл">
+  <span class="disc">♪</span>
+  <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+</button>
+
+<!-- book popup -->
+<div class="book-modal" id="bookModal" aria-hidden="true">
+  <div class="bm-book" id="bmBook">
+    <div class="bm-page"><p id="bmText"></p><div class="bm-sig" id="bmSig"></div></div>
+    <div class="bm-cover" id="bmCover"><span class="bm-ico" id="bmIco"></span><span class="bm-title" id="bmTitle"></span></div>
+  </div>
+  <button class="x" id="bmClose" type="button" aria-label="Закрыть">✕</button>
+</div>
+
+<!-- letter popup -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="letter" role="dialog" aria-label="Письмо">
+    <button class="x" id="closeLetter" type="button" aria-label="Закрыть">✕</button>
+    <div id="letterBody"></div>
+  </div>
+</div>
+
+<!-- end credits -->
+<div id="credits" aria-hidden="true">
+  <div class="stars" id="creditStars"></div>
+  <div class="credits-roll" id="creditsRoll"></div>
+  <button class="x" id="closeCredits" type="button" aria-label="Закрыть">✕</button>
+</div>
+
+<!-- achievement toast -->
+<div class="toast" id="toast" role="status">
+  <div class="trophy">🏆</div>
+  <div><small>ДОСТИЖЕНИЕ ПОЛУЧЕНО</small><b id="toastTitle"></b></div>
+</div>
+
+<script>
+/* если в config.js случайно сломалась кавычка или запятая — покажем понятное сообщение вместо пустого экрана */
+addEventListener("error", function (e) {
+  if (!e.filename || e.filename.indexOf("config.js") === -1 || document.getElementById("cfgError")) return;
+  var d = document.createElement("div");
+  d.id = "cfgError";
+  d.style.cssText = "position:fixed;left:12px;right:12px;top:12px;z-index:99999;padding:16px 18px;border-radius:14px;background:#c0262d;color:#fff;font:600 16px/1.5 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.45)";
+  d.textContent = "⚠️ Ошибка в файле config.js, строка " + e.lineno + ". Скорее всего, там (или строкой выше) пропала кавычка \" или запятая , — открой файл в Блокноте, исправь, сохрани и обнови страницу (F5).";
+  document.body.appendChild(d);
+});
+</script>
+<script src="config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/shader.js"></script>
+<script src="js/galaxy3d.js"></script>
+<script src="js/music.js"></script>
+<script src="js/game.js"></script>
+<script src="js/extras.js"></script>
+<script src="js/more.js"></script>
+<script src="js/arcade.js"></script>
+<script src="js/finale.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7.2/dist/hanzi-writer.min.js"></script>
+<script src="js/maryam.js"></script>
+<script src="js/arc.js"></script>
+<script src="js/piano.js"></script>
+<script src="js/avemaria.js"></script>
+</body>
+</html>
