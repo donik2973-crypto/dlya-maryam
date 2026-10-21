@@ -137,6 +137,19 @@
     </div>
   </section>
 
+  <!-- a million GPU particles -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">наведи · проведи пальцем · нажми</span>
+      <h2>Миллион звёзд</h2>
+      <p class="lead" id="millionLead">Хотя нет, тысяч мало — вот миллион. Каждую звезду двигает видеокарта, 60 раз в секунду.</p>
+    </div>
+    <div class="gpu-wrap reveal" data-a="zoom" id="millionWrap">
+      <canvas id="million" aria-label="Миллион частиц"></canvas>
+    </div>
+    <div class="gpu-bar" id="millionBar"><span class="gpu-count" id="millionCount"></span></div>
+  </section>
+
   <!-- Arc Warden -->
   <section class="section">
     <div class="head reveal">
@@ -198,6 +211,22 @@
     </div>
   </section>
 
+  <!-- fluid nebula -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">проведи пальцем · это настоящая жидкость</span>
+      <h2>Живая туманность</h2>
+      <p class="lead" id="fluidLead">Тут работает физика воды. Порисуй своей туманностью или напиши иероглифы тушью — и смотри, как течение их уносит.</p>
+    </div>
+    <div class="gpu-wrap reveal" data-a="zoom" id="fluidWrap">
+      <canvas id="fluid" aria-label="Жидкая туманность"></canvas>
+    </div>
+    <div class="gpu-bar">
+      <button class="gpu-chip on" id="inkBtn" type="button">✍️ написать тушью</button>
+      <button class="gpu-chip" id="fluidClear" type="button">очистить</button>
+    </div>
+  </section>
+
   <!-- leaked dossier -->
   <section class="section">
     <div class="head reveal">
@@ -238,6 +267,24 @@
     <div class="sky-wrap reveal" data-a="zoom">
       <canvas id="sky" aria-label="Созвездие"></canvas>
       <p class="sky-msg" id="skyMsg"></p>
+    </div>
+  </section>
+
+  <!-- the real sky on her birthday -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">настоящие звёзды · двигай время</span>
+      <h2>Небо в день твоего рождения</h2>
+      <p class="lead" id="bsLead">Настоящее небо над Ташкентом 19 июня 2009 года — в день, когда ты родилась. На рассвете Венера и Марс стояли почти вплотную, а рядом с ними висел тонкий месяц. Крути небо, двигай время и нажимай на яркие точки.</p>
+    </div>
+    <div class="bsky reveal" data-a="zoom">
+      <canvas id="bsky" aria-label="Звёздное небо в день рождения"></canvas>
+      <div class="bsky-tip" id="bsTip"></div>
+    </div>
+    <div class="gpu-bar bsky-ctrl">
+      <button class="gpu-chip on" id="bsPlay" type="button">▶ время</button>
+      <input type="range" id="bsTime" min="0" max="1439" step="1" aria-label="Время суток">
+      <span class="gpu-count" id="bsClock"></span>
     </div>
   </section>
 
@@ -354,6 +401,18 @@
     </div>
   </section>
 
+  <!-- black hole -->
+  <section class="section">
+    <div class="head reveal">
+      <span class="kicker">потяни, чтобы облететь</span>
+      <h2>Чёрная дыра</h2>
+      <p class="lead" id="bhLead">Свет вокруг неё изгибается по формулам Эйнштейна — как в «Интерстелларе». Ничего не нарисовано заранее: каждый луч считается прямо сейчас.</p>
+    </div>
+    <div class="gpu-wrap reveal" data-a="zoom" id="bhWrap">
+      <canvas id="blackhole" aria-label="Чёрная дыра"></canvas>
+    </div>
+  </section>
+
   <footer>
     <span class="big" id="footBig"></span>
     <span id="footLine"></span>
@@ -422,5 +481,12 @@ addEventListener("error", function (e) {
 <script src="js/arc.js"></script>
 <script src="js/piano.js"></script>
 <script src="js/avemaria.js"></script>
+<script src="js/million.js"></script>
+<script src="js/fluid.js"></script>
+<script src="js/blackhole.js"></script>
+<script src="js/skydata.js"></script>
+<script src="js/birthsky.js"></script>
+<script src="js/finale2.js"></script>
+<script src="js/letterbook.js"></script>
 </body>
 </html>

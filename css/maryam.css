@@ -274,3 +274,86 @@ body::before{background:
 @keyframes sunGlow{50%{box-shadow:inset 0 0 0 2px rgba(255,255,255,.4),0 0 40px rgba(255,210,120,1),0 10px 18px -8px rgba(0,0,0,.6)}}
 .spine.special .sp-ico{animation:sunSpin 8s linear infinite;display:inline-block}
 @keyframes sunSpin{to{transform:rotate(360deg)}}
+
+/* ---------- ✨ GPU sections: million particles · fluid · black hole ---------- */
+.gpu-wrap{position:relative;width:min(960px,94vw);aspect-ratio:16/10;margin:0 auto;border-radius:24px;overflow:hidden;
+  background:radial-gradient(110% 90% at 50% 45%,rgba(46,22,92,.5),rgba(6,4,22,.88));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),0 30px 80px -30px rgba(130,90,255,.5)}
+.gpu-wrap canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
+#bhWrap{aspect-ratio:16/9;background:#000}
+#bhWrap canvas{cursor:grab}
+#bhWrap canvas:active{cursor:grabbing}
+@media (max-width:640px){.gpu-wrap{aspect-ratio:1}#bhWrap{aspect-ratio:4/5}}
+.gpu-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:16px auto 0;padding:0 16px}
+.gpu-chip{font:700 14px/1 Nunito,sans-serif;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);
+  border-radius:999px;padding:9px 16px;cursor:pointer;transition:background .25s,transform .2s}
+.gpu-chip:hover{background:rgba(255,255,255,.16)}
+.gpu-chip:active{transform:scale(.95)}
+.gpu-chip.on{background:linear-gradient(90deg,#ff7ac8,#9a6bff,#6fa8ff);border-color:transparent;box-shadow:0 6px 20px -6px rgba(180,110,255,.7)}
+.gpu-count{flex-basis:100%;text-align:center;font:600 13px "JetBrains Mono",monospace;color:rgba(232,220,255,.65);letter-spacing:.04em}
+
+/* ---------- 🌌 birthday sky ---------- */
+.bsky{position:relative;width:min(620px,94vw);aspect-ratio:1;margin:0 auto;border-radius:50%;
+  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 30px 90px -30px rgba(140,100,255,.6)}
+#bsky{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+#bsky:active{cursor:grabbing}
+.bsky-tip{position:absolute;transform:translate(-50%,calc(-100% - 14px));padding:7px 12px;border-radius:12px;white-space:nowrap;pointer-events:none;
+  font:700 13px Nunito,sans-serif;color:#fff;background:rgba(28,16,60,.88);border:1px solid rgba(255,255,255,.18);opacity:0;transition:opacity .25s}
+.bsky-tip.show{opacity:1}
+.bsky-ctrl input[type=range]{flex:1 1 220px;max-width:340px;accent-color:#c27cff}
+
+/* ---------- 🕳️ black hole finale ---------- */
+#bhFinale{position:fixed;inset:0;z-index:90;pointer-events:none;visibility:hidden;--dark:0}
+#bhFinale.show{visibility:visible;pointer-events:auto}
+#bhFinale::before{content:"";position:absolute;inset:0;background:#05030f;opacity:var(--dark)}
+#bhFinale.flash::before{opacity:1}
+#bhFinale canvas{position:absolute;inset:0;width:100%;height:100%}
+.fin-bh{transition:opacity .3s}
+.fin-stars{opacity:0;touch-action:none}
+#bhFinale.flash .fin-stars{opacity:1;transition:opacity .3s .15s}
+.fin-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#bhFinale.flash .fin-flash{animation:finFlash 1.6s ease-out}
+@keyframes finFlash{0%{opacity:0}6%{opacity:1}100%{opacity:0}}
+.fin-ui{position:absolute;left:0;right:0;bottom:max(28px,6vh);display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 20px;
+  text-align:center;opacity:0;transform:translateY(16px);transition:opacity 1.2s,transform 1.2s;pointer-events:none}
+.fin-ui.show{opacity:1;transform:none;pointer-events:auto}
+.fin-line{max-width:560px;margin:0;font:600 clamp(15px,2.2vw,19px)/1.5 Nunito,sans-serif;color:#f3e8ff;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.fin-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+body.fin-on{overflow:hidden}
+
+/* ---------- 📖 the letter as a 3D book ---------- */
+#letterBook{position:fixed;inset:0;z-index:86;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:radial-gradient(90% 70% at 50% 45%,rgba(40,22,86,.97),rgba(6,4,20,.99));opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s .5s}
+#letterBook.show{opacity:1;visibility:visible;transition:opacity .5s}
+#letterBook .x{position:absolute;top:16px;right:16px}
+.lb-stage{width:100%;display:flex;justify-content:center;overflow:hidden;padding:30px 0;touch-action:none;cursor:grab}
+.lb-book{position:relative;perspective:2200px;transition:transform .7s cubic-bezier(.3,.7,.3,1)}
+.lb-book::before{content:"";position:absolute;left:50%;top:3%;bottom:-3%;width:96%;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);filter:blur(12px);z-index:-1}
+.lb-leaf{position:absolute;left:50%;top:0;height:100%;transform-style:preserve-3d}
+.lb-strip{position:absolute;top:0;height:100%;transform-style:preserve-3d;transform-origin:left center}
+.lb-slice{position:absolute;top:0;left:0;width:calc(100% + .6px);height:100%;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.lb-back{transform:rotateY(180deg)}
+.lb-shade{position:absolute;inset:0;background:#2a1650;opacity:0;pointer-events:none}
+.lb-face{position:absolute;top:0;height:100%;box-sizing:border-box}
+.lb-paper{background:linear-gradient(90deg,rgba(120,80,60,.14),transparent 9%),repeating-linear-gradient(transparent 0 29px,rgba(150,120,220,.13) 29px 30px),#fffaf2;
+  color:#3a2550;padding:34px 26px 30px 30px;font:500 21px/30px Caveat,cursive;overflow:hidden}
+.lb-back .lb-paper{background:linear-gradient(270deg,rgba(120,80,60,.14),transparent 9%),repeating-linear-gradient(transparent 0 29px,rgba(150,120,220,.13) 29px 30px),#fffaf2;padding:34px 30px 30px 26px}
+.lb-text p{margin:0 0 30px}
+.lb-sign{text-align:right;font-weight:700;color:#b0408a}
+.lb-pg{position:absolute;bottom:10px;left:0;right:0;text-align:center;font:600 12px Nunito,sans-serif;color:#a690c8}
+.lb-cov{background:radial-gradient(120% 90% at 30% 20%,#8d5cf6,#4a2690 55%,#2a1458);border-radius:2px 10px 10px 2px;
+  box-shadow:inset 6px 0 10px rgba(0,0,0,.35),inset 0 0 0 6px rgba(255,214,140,.25)}
+.lb-cover{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#ffe7b0;text-align:center;padding:20px}
+.lb-cover b{font:700 clamp(40px,7vw,58px)/1 Caveat,cursive;text-shadow:0 0 18px rgba(255,200,120,.6)}
+.lb-cover span{font:600 22px Caveat,cursive}
+.lb-cover i{font:600 15px Nunito,sans-serif;opacity:.75;margin-top:18px}
+.lb-star{font-size:38px!important;animation:lbPulse 2.4s ease-in-out infinite}
+@keyframes lbPulse{0%,100%{opacity:.6;transform:scale(.9)}50%{opacity:1;transform:scale(1.15) rotate(20deg)}}
+.lb-end{height:100%;display:grid;place-items:center;font:400 54px "Ma Shan Zheng",serif;color:#c06bd8}
+.lb-nav{display:flex;align-items:center;gap:14px}
+.lb-num{font:700 13px "JetBrains Mono",monospace;color:rgba(232,220,255,.7);min-width:70px;text-align:center}
+.lb-hint{margin:0;font:600 13px Nunito,sans-serif;color:rgba(232,220,255,.55)}
+.lb-flat{position:absolute;inset:0;transform-style:preserve-3d;transform-origin:left center}
+.lb-leaf.still>.lb-strip,.lb-leaf:not(.still)>.lb-flat{visibility:hidden}
+#bhFinale .fin-stars{height:calc(100% - 200px)}

@@ -1,10 +1,10 @@
 /* Service worker: lets the site be installed like an app and open offline.
    Bump VERSION whenever you change files so phones get the new version. */
-const VERSION = "maryam-v4";
+const VERSION = "maryam-v6";
 const FILES = [
   "./", "index.html", "config.js", "manifest.webmanifest",
   "css/style.css", "css/features.css", "css/more.css", "css/arcade.css", "css/maryam.css", "css/doniyor.css",
-  "js/app.js", "js/shader.js", "js/galaxy3d.js", "js/music.js", "js/game.js", "js/extras.js", "js/more.js", "js/arcade.js", "js/finale.js", "js/maryam.js", "js/arc.js", "js/piano.js", "js/avemaria.js",
+  "js/app.js", "js/shader.js", "js/galaxy3d.js", "js/music.js", "js/game.js", "js/extras.js", "js/more.js", "js/arcade.js", "js/finale.js", "js/maryam.js", "js/arc.js", "js/piano.js", "js/avemaria.js", "js/million.js", "js/fluid.js", "js/blackhole.js", "js/skydata.js", "js/birthsky.js", "js/finale2.js", "js/letterbook.js",
   "icons/icon-192.png", "icons/icon-512.png",
 ];
 self.addEventListener("install", (e) => {

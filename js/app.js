@@ -692,7 +692,7 @@ addEventListener("pointermove", queueParallax, { passive: true });
 /* tap empty space → ripple of love */
 document.addEventListener("pointerdown", (e) => {
   if (!document.body.classList.contains("entered")) return;
-  if (e.target.closest("button, input, .wk, .bk, .flip, .envelope, .modal, .crew, .q-box, .game, .coupon, #galaxy3d, .bouquet, .polaroid, .meter-box, #credits, .shelf, .poem, .dossier, .cheer, #sky, .hz-box, .sphere, .book-modal, .arc")) return;
+  if (e.target.closest("button, input, .wk, .bk, .flip, .envelope, .modal, .crew, .q-box, .game, .coupon, #galaxy3d, .bouquet, .polaroid, .meter-box, #credits, .shelf, .poem, .dossier, .cheer, #sky, .hz-box, .sphere, .book-modal, .arc, .gpu-wrap, .bsky, #letterBook, #bhFinale")) return;
   ring(e.clientX, e.clientY, { size: 130, width: 2, dur: 700 });
   burst(e.clientX, e.clientY, 6, ["✨", "⭐", "💫"]);
 });
@@ -936,6 +936,7 @@ function buildLetter() {
   letterBody.appendChild(s);
 }
 async function openLetter() {
+  if (typeof LetterBook !== "undefined") return LetterBook.open();   // the 3D book from js/letterbook.js
   buildLetter();
   modal.classList.add("show");
   modal.removeAttribute("aria-hidden");
