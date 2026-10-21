@@ -1,6 +1,6 @@
 /* Service worker: lets the site be installed like an app and open offline.
    Bump VERSION whenever you change files so phones get the new version. */
-const VERSION = "maryam-v6";
+const VERSION = "maryam-v7";
 const FILES = [
   "./", "index.html", "config.js", "manifest.webmanifest",
   "css/style.css", "css/features.css", "css/more.css", "css/arcade.css", "css/maryam.css", "css/doniyor.css",

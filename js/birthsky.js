@@ -10,7 +10,7 @@
   const cv = $("#bsky");
   if (!cv || typeof SKY_STARS === "undefined") return;
   const c = cv.getContext("2d");
-  const B = Object.assign({ date: "2009-06-19", city: "Ташкент", lat: 41.31, lon: 69.28, utc: 5, time: "03:45" }, CONFIG.birthSky || {});
+  const B = Object.assign({ date: "2009-06-20", city: "Ташкент", lat: 41.31, lon: 69.28, utc: 5, time: "03:45" }, CONFIG.birthSky || {});
   if (CONFIG.birthSkyLead) $("#bsLead").textContent = CONFIG.birthSkyLead;
 
   /* ---------- astronomy ---------- */
